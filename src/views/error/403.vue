@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import noAccess from "@/assets/status/403.svg?component";
-
+import { getList } from "@/api/list";
+import { ref, onMounted } from "vue";
 defineOptions({
   name: "403"
 });
-
+onMounted(() => {
+  listApi();
+});
 const router = useRouter();
+const list = ref([]);
+const listApi = async () => {
+  const res = await getList();
+  list.value = res.data;
+  console.log(res);
+};
 </script>
 
 <template>
